@@ -45,3 +45,14 @@
 
 ---
 *本规范为 OpenCode 全局约束，适用于所有项目。项目可在 `.opencode/AGENTS.md` 中补充特定规则。*
+
+## 用户环境偏好（全局持久记忆）
+
+- **所在地 / 网络**：用户在中国大陆。下载安装依赖包、拉取镜像、访问境外源（npm / PyPI / HuggingFace / GitHub release / Docker 等）时可能遇到网络不通或超时。
+- **应对规则**：一旦检测到网络访问失败，立即尝试切换国内主流镜像站，不要反复重试原地址：
+  - npm：`https://registry.npmmirror.com`（淘宝）
+  - PyPI：`https://pypi.tuna.tsinghua.edu.cn/simple`（清华）/ `https://mirrors.aliyun.com/pypi/simple`（阿里）
+  - Docker：`https://registry.cn-hangzhou.aliyuncs.com` 或中科大/清华镜像
+  - HuggingFace：本项目已用 `https://hf-mirror.com`（`HF_ENDPOINT`，禁 xet）
+  - 其他（apt/conda/Go/Cargo 等）：优先阿里云、腾讯云、清华、华为云镜像站
+- 切换镜像前应告知用户正在换源；对用户已显式指定的镜像/源保持尊重，不擅自覆盖。
